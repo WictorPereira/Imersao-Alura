@@ -4,7 +4,8 @@
     left: 0;
     top: 0;
     bottom: 0;
-    width: 18.75rem; /* 300px para rem */
+    width: 325px;
+    height: 519.77px;
     background-color: #000000;
     padding: 0.75rem; /* 12px para rem */
 }

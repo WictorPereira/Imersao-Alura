@@ -338,6 +338,22 @@
   #result-artist {
     padding: 20px 40px;
   }
+
+  #result-playlists {
+    /* restante do seu estilo */
+    padding: 20px 40px;
+    /* Adicione uma classe condicional para exibir quando não há artistas filtrados */
+  }
+  #result-artist {
+    display: none;
+    padding: 20px 40px;
+    /* restante do seu estilo */
+    
+  
+    /* Adicione uma classe condicional para exibir quando há artistas filtrados */
+  }
+
+
   /* FIM CARD ARTISTA */
   
   

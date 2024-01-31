@@ -2,6 +2,9 @@ import'./Main-content.css'
 import './vars.css'
 import './Media-querys.css'
 
+import artistsData from'../api-artists/artists.json'
+import React, { useState, useEffect } from 'react';
+
 import smallLeft from '../assets/icons/small-left.png'
 import smallRight from '../assets/icons/small-right.png'
 import search from '../assets/icons/search.png'
@@ -21,9 +24,24 @@ import card13 from '../assets/playlist/13.jpeg'
 import card14 from '../assets/playlist/14.jpeg'
 import card15 from '../assets/playlist/15.jpeg'
 
-function Main() {
 
-  
+
+function Main() {    
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredArtists, setFilteredArtists] = useState([]);
+  useEffect(() => {
+  }, [filteredArtists]);
+
+  const handleSearch = (event) => {
+    const term = event.target.value.toLowerCase();
+    setSearchTerm(term);
+    const filtered = artistsData.artists.filter((artist) =>
+      artist.name.toLowerCase().includes(term)
+    );
+    setFilteredArtists(filtered);
+  };
+
   return (
     <main>
     <div className="main-container">
@@ -46,7 +64,9 @@ function Main() {
               autoCapitalize="off"
               spellCheck="false"
               placeholder="O que você quer ouvir?"
-              value=""
+              value={searchTerm}
+              onChange={handleSearch}
+              
             />
           </div>
         </div>
@@ -59,7 +79,7 @@ function Main() {
   
       {/* PLAYLIST */}
       <div className="playlist-container">
-        <div id="result-playlists">
+        <div id="result-playlists" className={searchTerm !== '' ? 'hidden' : ''}>
           <div className="playlist">
             {/* COLOCAR O BOM DIA | BOA TARDE | BOA NOITE */}
             <h1 id="greeting">Bom dia</h1>
@@ -70,6 +90,7 @@ function Main() {
           <div className="offer__scroll-container">
             <div className="offer__list">
               <section className="offer__list-item">
+
                 {/* CARD 1 */}
                 <a href="" className="cards">
                   <div className="cards card1">
@@ -194,21 +215,29 @@ function Main() {
           </div>
         </div>
   
-        <div id="result-artist" className="hidden">
+        <div id="result-artist"style={{ display: filteredArtists.length > 0 ? 'block' : 'none' }}>
           <div className="grid-container">
-            <div className="artist-card" id="">
-              <div className="card-img">
-                <img id="artist-img" className="artist-img" alt="" />
-                <div className="play">
-                  <span className="fa fa-solid fa-play"></span>
+            
+          {filteredArtists.map((artist) => (
+            
+                <div className="artist-card" key={artist.id}>
+                  <div className="card-img">
+                    <img
+                      src={artist.urlImg}
+                      alt={artist.name}
+                      className="artist-img"
+                    />
+                    <div className="play">
+                      <span className="fa fa-solid fa-play"></span>
+                    </div>
+                  </div>
+                  <div className="card-text">
+                    <a title={artist.name} className="vst" href="#"></a>
+                    <span className="artist-name">{artist.name}</span>
+                    <span className="artist-categorie">Artista</span>
+                  </div>
                 </div>
-              </div>
-              <div className="card-text">
-                <a title="Foo Fighters" className="vst" href=""></a>
-                <span className="artist-name" id="artist-name"></span>
-                <span className="artist-categorie">Artista</span>
-              </div>
-            </div>
+              ))}
           </div>
         </div>
       </div>

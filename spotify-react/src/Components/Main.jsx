@@ -30,8 +30,7 @@ function Main() {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredArtists, setFilteredArtists] = useState([]);
-  useEffect(() => {
-  }, [filteredArtists]);
+  
 
   const handleSearch = (event) => {
     const term = event.target.value.toLowerCase();
